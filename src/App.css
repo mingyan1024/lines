@@ -20,6 +20,10 @@
     text-decoration: underline;
 }
 
+.footer-sep {
+    color: #444;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: #0f0f0f;

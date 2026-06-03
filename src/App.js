@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 const I18N = {
@@ -233,6 +234,12 @@ export default function App() {
             <footer className="config-footer">
                 {I18N[lang].footerContact}{' '}
                 <a href="mailto:mycoolbb@gmail.com" className="footer-link">mycoolbb@gmail.com</a>
+                <span className="footer-sep"> · </span>
+                <Link to="/privacy" className="footer-link">{lang === 'zh' ? '隐私政策' : 'Privacy Policy'}</Link>
+                <span className="footer-sep"> · </span>
+                <Link to="/contact" className="footer-link">{lang === 'zh' ? '联系我们' : 'Contact'}</Link>
+                <span className="footer-sep"> · </span>
+                <Link to="/about" className="footer-link">{lang === 'zh' ? '关于' : 'About'}</Link>
             </footer>
         </div>
     );
