@@ -33,12 +33,33 @@ const I18N = {
     },
 };
 
+const STORAGE_KEYS = {
+    text: 'lines.teleprompter.text',
+    lang: 'lines.teleprompter.lang',
+    speed: 'lines.teleprompter.speed',
+    fontSize: 'lines.teleprompter.fontSize',
+};
+
+const readStorage = (key, fallback) => {
+    try {
+        const value = window.localStorage.getItem(key);
+        return value === null ? fallback : value;
+    } catch {
+        return fallback;
+    }
+};
+
+const readNumberStorage = (key, fallback) => {
+    const value = Number(readStorage(key, fallback));
+    return Number.isFinite(value) ? value : fallback;
+};
+
 export default function App() {
     const [screen, setScreen] = useState('config'); // 'config' | 'play'
-    const [lang, setLang] = useState('zh');
-    const [text, setText] = useState('');
-    const [speed, setSpeed] = useState(50); // px per second
-    const [fontSize, setFontSize] = useState(48);
+    const [lang, setLang] = useState(() => readStorage(STORAGE_KEYS.lang, 'zh'));
+    const [text, setText] = useState(() => readStorage(STORAGE_KEYS.text, ''));
+    const [speed, setSpeed] = useState(() => readNumberStorage(STORAGE_KEYS.speed, 50)); // px per second
+    const [fontSize, setFontSize] = useState(() => readNumberStorage(STORAGE_KEYS.fontSize, 48));
     const [playing, setPlaying] = useState(false);
     const [scrollY, setScrollY] = useState(0);
 
@@ -51,6 +72,33 @@ export default function App() {
     scrollYRef.current = scrollY;
 
     const lines = text.split('\n');
+
+    useEffect(() => {
+        try {
+            window.localStorage.setItem(STORAGE_KEYS.text, text);
+        } catch {
+            // Ignore storage errors, such as private browsing restrictions.
+        }
+    }, [text]);
+
+    useEffect(() => {
+        try {
+            window.localStorage.setItem(STORAGE_KEYS.lang, lang);
+            window.localStorage.setItem(STORAGE_KEYS.speed, String(speed));
+            window.localStorage.setItem(STORAGE_KEYS.fontSize, String(fontSize));
+        } catch {
+            // Ignore storage errors, such as private browsing restrictions.
+        }
+    }, [lang, speed, fontSize]);
+
+    const clearSavedDraft = () => {
+        setText('');
+        try {
+            window.localStorage.removeItem(STORAGE_KEYS.text);
+        } catch {
+            // Ignore storage errors, such as private browsing restrictions.
+        }
+    };
 
     const startPlay = () => {
         setScrollY(0);
@@ -227,6 +275,13 @@ export default function App() {
                         disabled={!text.trim()}
                     >
                         {I18N[lang].playBtn}
+                    </button>
+                    <button
+                        className="clear-draft-button"
+                        onClick={clearSavedDraft}
+                        disabled={!text}
+                    >
+                        {lang === 'zh' ? '清空暂存' : 'Clear saved draft'}
                     </button>
                 </div>{/* config-side-col */}
             </div>{/* config-main-row */}

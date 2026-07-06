@@ -10,8 +10,9 @@ const zh = {
             <div className="page-section">
                 <h2>我们收集哪些数据</h2>
                 <p>
-                    本网站（lines.gaomian.org）是一款纯前端工具，<strong style={{ color: '#e0e0e0' }}>不收集、不存储任何个人信息</strong>。
-                    你输入的文案内容仅在你的浏览器本地运行，不会被上传至任何服务器。
+                    本网站（lines.gaomian.org）是一款纯前端工具，<strong style={{ color: '#e0e0e0' }}>不收集、不上传你的个人信息或文稿内容</strong>。
+                    你输入的文稿内容仅在你的浏览器本地运行。为了方便下次继续使用，当前文稿可能会保存在你浏览器的本地存储中，
+                    不会上传至任何服务器，你也可以随时在页面中清空暂存内容。
                 </p>
             </div>
             <div className="page-section">
@@ -45,8 +46,10 @@ const en = {
                 <h2>Data We Collect</h2>
                 <p>
                     This website (lines.gaomian.org) is a purely client-side tool.{' '}
-                    <strong style={{ color: '#e0e0e0' }}>We do not collect or store any personal information.</strong>{' '}
-                    The script text you enter runs entirely in your browser and is never sent to any server.
+                    <strong style={{ color: '#e0e0e0' }}>We do not collect or upload your personal information or script content.</strong>{' '}
+                    The script text you enter runs entirely in your browser. To make it easier to continue later,
+                    your current draft may be saved in your browser's local storage. It is never sent to any server,
+                    and you can clear the saved draft from the page at any time.
                 </p>
             </div>
             <div className="page-section">

@@ -200,6 +200,29 @@ body {
     cursor: not-allowed;
 }
 
+.clear-draft-button {
+    align-self: stretch;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    background: transparent;
+    color: #999;
+    border: 1px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.clear-draft-button:hover:not(:disabled) {
+    color: #c8a84b;
+    border-color: #c8a84b;
+}
+
+.clear-draft-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
 /* ── Play Screen ── */
 .play-screen {
     position: fixed;
